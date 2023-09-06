@@ -112,7 +112,13 @@ public class ApiController {
 
         return userService.getUserByID(userid);
     }
-
+    @GetMapping("/apitest")
+    public User gettest(){
+        System.out.println("userservice"+userService);
+        User user = userService.findByUsername("username3");
+        System.out.println("user"+user);
+        return user;
+    }
     @GetMapping("/page")
     public Page<User> getPage(){
 

@@ -9,8 +9,20 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.example.netty.handler.ServerHandler;
+import org.example.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class NettyServer {
+    private final UserService userService;
+    public static ServerHandler serverHandler;
+
+    @Autowired
+    public NettyServer(UserService userService) {
+        this.userService = userService;
+        serverHandler = new ServerHandler(userService);
+    }
     public static void main(String[] args) throws Exception {
         //创建两个线程组 boosGroup、workerGroup
         EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -31,7 +43,7 @@ public class NettyServer {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             //给pipeline管道设置处理器
-                            socketChannel.pipeline().addLast(new ServerHandler());
+                            socketChannel.pipeline().addLast(serverHandler);
                         }
                     });//给workerGroup的EventLoop对应的管道设置处理器
             System.out.println("開始接收socket");
