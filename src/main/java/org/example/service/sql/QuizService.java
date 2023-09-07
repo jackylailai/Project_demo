@@ -1,4 +1,4 @@
-package org.example.service;
+package org.example.service.sql;
 
 import org.example.entity.Quiz;
 import org.example.repository.QuizRepository;

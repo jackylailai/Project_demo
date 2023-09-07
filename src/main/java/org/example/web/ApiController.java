@@ -3,7 +3,7 @@ package org.example.web;
 import org.example.entity.User;
 import org.example.model.LoginRequest;
 import org.example.model.UserDataResponse;
-import org.example.service.UserService;
+import org.example.service.sql.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
-import java.util.Enumeration;
 
 import static org.example.service.SHAService.getSHA256StrJava;
 

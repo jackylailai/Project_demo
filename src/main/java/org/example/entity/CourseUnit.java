@@ -1,27 +1,39 @@
 package org.example.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "courseunits")
+@Table(name = "units") // Adjust the table name as needed
 public class CourseUnit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    private Integer courseId;
-    private Integer unitSeq;
+    private int courseId;
+    private int unitId;
     private String unitName;
     private String unitSchedule;
     private String unitSubject;
+    private int order;
     private String descTitle1;
     private String descContent1;
     private String descTitle2;
     private String descContent2;
     private String videoUrl;
     private String videoFormat;
-    private Integer creditUnits;
+    private String dfcsId;
+    private int creditUnits;
+    private int state;
+    private long longDate;
+    private long createDate;
+    private long updateDate;
 
-    // Getter and Setter 方法
+    @ElementCollection
+    @CollectionTable(name = "unit_student_list", joinColumns = @JoinColumn(name = "unit_id"))
+    private List<String> studentList;
+
+    // Constructors, getters, setters, and other methods as needed
 }
+
 

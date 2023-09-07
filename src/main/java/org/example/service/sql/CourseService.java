@@ -1,4 +1,4 @@
-package org.example.service;
+package org.example.service.sql;
 
 import org.example.entity.Course;
 import org.example.repository.CourseRepository;
