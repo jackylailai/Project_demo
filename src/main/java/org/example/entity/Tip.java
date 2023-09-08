@@ -4,6 +4,7 @@ import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "tips")
@@ -26,15 +27,11 @@ public class Tip implements Serializable {
     private String content;
 
     private int state;
-
-    @Column(name = "longDate")
     private long longDate;
-
-    @Column(name = "createDate")
-    private long createDate;
-
-    @Column(name = "updateDate")
-    private long updateDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updateDate;
 
     // Getter and Setter methods
 }

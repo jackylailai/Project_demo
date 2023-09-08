@@ -15,7 +15,12 @@ public class CourseUnitService{
     public CourseUnitService(CourseUnitRepository courseUnitRepository) {
         this.courseUnitRepository = courseUnitRepository;
     }
-
+    public List<Object[]> getCourseUnitDetailsByCourseId(int courseId) {
+        return courseUnitRepository.findCourseUnitDetailsByCourseId(courseId);
+    }
+    public List<Object[]> getDescAndContentByUnitId(Long unitId) {
+        return courseUnitRepository.findDescAndContentByUnitId(unitId);
+    }
     public CourseUnit save(CourseUnit courseUnit) {
         return courseUnitRepository.save(courseUnit);
     }
@@ -23,6 +28,9 @@ public class CourseUnitService{
     public List<CourseUnit> findAll() {
         return courseUnitRepository.findAll();
     }
-
+    public String getVideoUrlByUnitId(int unitId) {
+        String videoUrl = courseUnitRepository.findVideoUrlByUnitId(unitId);
+        return videoUrl;
+    }
 }
 

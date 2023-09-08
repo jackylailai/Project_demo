@@ -16,7 +16,6 @@ public class AttendanceService {
     }
 
     public Attendance createAttendance(Attendance attendance) {
-        // 可以在这里添加保存 Attendance 实体的逻辑
         return attendanceRepository.save(attendance);
     }
 
@@ -24,6 +23,5 @@ public class AttendanceService {
         // 获取所有 Attendance 记录的逻辑
         return attendanceRepository.findAll();
     }
-
 }
 

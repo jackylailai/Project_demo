@@ -1,6 +1,7 @@
 package org.example.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "QuestionAnswer")
@@ -23,6 +24,11 @@ public class QuestionAnswer {
 
     @Column(name = "score")
     private Integer score;
-
+    private int state;
+    private long longDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updateDate;
     // Getter and Setter 方法
 }

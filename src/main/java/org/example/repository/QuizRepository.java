@@ -8,6 +8,6 @@ import java.util.List;
 @Repository
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
     Quiz save(Quiz quiz);
-
+    List<Quiz> findByUnitId(Integer unitId);
 }
 

@@ -20,6 +20,9 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
+    public List<Quiz> getQuizzesByUnitId(Integer unitId) {
+        return quizRepository.findByUnitId(unitId);
+    }
 
     public List<Quiz> getAllQuizzes() {
         return quizRepository.findAll();

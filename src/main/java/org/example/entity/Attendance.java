@@ -1,10 +1,11 @@
 package org.example.entity;
 
 import javax.persistence.*;
-
+import java.io.Serializable;
+import java.util.Date;
 @Entity
 @Table(name = "Attendance")
-public class Attendance {
+public class Attendance implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,8 +22,8 @@ public class Attendance {
     @Column(name = "date")
     private String date;
 
-    @Column(name = "group")
-    private Integer group;
+    @Column(name = "team")
+    private Integer team;
 
     @Column(name = "role")
     private Integer role;
@@ -35,12 +36,11 @@ public class Attendance {
 
     @Column(name = "longDate")
     private Long longDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updateDate;
 
-    @Column(name = "createDate")
-    private Long createDate;
-
-    @Column(name = "updateDate")
-    private Long updateDate;
 
     // Getter and Setter 方法
 }
