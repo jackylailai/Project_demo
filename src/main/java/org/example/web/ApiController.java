@@ -100,6 +100,12 @@ public class ApiController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session ID 無效 or 尚未登入"); // 用戶未登入或 Session ID 無效
         }
     }
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout(HttpSession session) {
+        session.invalidate();
+        return ResponseEntity.ok("登出成功");
+    }
+
     @GetMapping("/userByName/{username}")
     public User getUserByName(@PathVariable("username") String username){
 

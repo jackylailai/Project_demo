@@ -1,8 +1,10 @@
 package org.example.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
-
+@Data//會自動生成一些通用的方法，包括 getter 和 setter 方法
 @Entity
 @Table(name = "QuestionAnswer")
 public class QuestionAnswer {

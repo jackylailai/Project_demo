@@ -52,4 +52,10 @@ public class TipService{
     public Tip getTipByTipId(int tipId) {
         return tipRepository.findByTipId(tipId);
     }
+
+    public List<String> getTipTitlesByUnitId(int unitId) {
+        return tipRepository.findTitlesByUnitId(unitId);
+    }
+
+
 }

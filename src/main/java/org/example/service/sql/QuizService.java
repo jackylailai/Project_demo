@@ -28,5 +28,14 @@ public class QuizService {
         return quizRepository.findAll();
     }
 
-    // 可以实现其他业务逻辑方法
+    public String getQuizTitleByUnitId(int unitId) {
+        Quiz quiz = quizRepository.findByUnitId(unitId);
+
+        if (quiz != null) {
+            return quiz.toString();
+        } else {
+            return null;
+        }
+    }
+
 }

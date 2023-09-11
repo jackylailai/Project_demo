@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import javassist.NotFoundException;
 import org.example.entity.Quiz;
 import org.example.service.sql.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +29,15 @@ public class QuizController {
         }
         return ResponseEntity.ok(quizzes);
     }
+    @GetMapping("/title/{unitId}")
+    public String getQuizTitle(@PathVariable int unitId) throws NotFoundException {
+        String title = quizService.getQuizTitleByUnitId(unitId);
+        if (title != null) {
+            return title;
+        } else {
+            throw new NotFoundException("Quiz title not found for unitId: " + unitId);
+        }
+    }
+
+
 }

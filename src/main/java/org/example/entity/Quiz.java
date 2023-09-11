@@ -1,8 +1,10 @@
 package org.example.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
-
+@Data//會自動生成一些通用的方法，包括 getter 和 setter 方法
 @Entity
 @Table(name = "Quiz")
 public class Quiz {
@@ -10,11 +12,8 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "quizSeq")
-    private Integer quizSeq;
-
-    @Column(name = "unitSeq")
-    private Integer unitSeq;
+    private Integer quizId;
+    private Integer unitId;
 
     @Column(name = "title")
     private String title;
