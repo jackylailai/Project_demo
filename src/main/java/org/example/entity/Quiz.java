@@ -12,8 +12,8 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer quizId;
-    private Integer unitId;
+    private Long quizId;
+    private Long unitId;
 
     @Column(name = "title")
     private String title;

@@ -23,7 +23,7 @@ public class TipController {
     }
 
     @GetMapping("/{tipId}")
-    public ResponseEntity<Tip> getTipById(@PathVariable int tipId) {
+    public ResponseEntity<Tip> getTipById(@PathVariable Long tipId) {
         List<Tip> tips = (List<Tip>) tipService.getTipByTipId(tipId);
 
         if (tips.isEmpty()) {

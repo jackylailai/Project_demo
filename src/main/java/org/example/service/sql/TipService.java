@@ -49,11 +49,11 @@ public class TipService{
         return tipRepository.updateById(title, id);
     }
 
-    public Tip getTipByTipId(int tipId) {
+    public Tip getTipByTipId(Long tipId) {
         return tipRepository.findByTipId(tipId);
     }
 
-    public List<String> getTipTitlesByUnitId(int unitId) {
+    public List<String> getTipTitlesByUnitId(Long unitId) {
         return tipRepository.findTitlesByUnitId(unitId);
     }
 

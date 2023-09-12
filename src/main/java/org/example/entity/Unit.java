@@ -11,13 +11,13 @@ import java.util.Date;
 public class Unit implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
 
-    private int courseId;
+    private Long courseId;
 
 
-    private int unitId;
+    private Long unitId;
 
 
     private String unitName;
@@ -49,7 +49,7 @@ public class Unit implements Serializable {
     private String videoFormat;
 
 
-    private String dfcsId;
+    private Long dfcsId;
 
 
     private int creditUnits;
@@ -63,6 +63,10 @@ public class Unit implements Serializable {
 
     @Column(name = "studentListId")
     private String studentListId;
+
+    public String getName() {
+        return unitName;
+    }
     //先設定為id
 
     // Constructors, getters, setters, and other methods as needed

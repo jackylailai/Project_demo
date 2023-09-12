@@ -9,27 +9,13 @@ import java.util.Date;
 public class Content implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-
-    private int unitId;
-
-
-    private int contentId;
-
-
+    private Long id;
+    private Long unitId;
+    private Long contentId;
     private String content;
-
-
     private String pictureUrl1;
-
-
     private String pictureUrl2;
-
-
     private String pictureUrl3;
-
-
     private String pictureUrl4;
     private int state;
     private long longDate;

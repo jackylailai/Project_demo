@@ -23,5 +23,9 @@ public class AttendanceService {
         // 获取所有 Attendance 记录的逻辑
         return attendanceRepository.findAll();
     }
+
+    public List<Object[]> getScoreDetailsByUsername(String username) {
+        return getScoreDetailsByUsername(username);
+    }
 }
 

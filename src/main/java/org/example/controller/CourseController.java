@@ -28,17 +28,20 @@ public class CourseController {
     public String createCourse() {
         return "Empty form created.";
     }
+    //for test
     @PostMapping("/post")
     public String handlePostRequest(@RequestBody String requestBody) {
 
         System.out.println("Received POST request with body: " + requestBody);
         return "Response from server: Test Request received successfully";
     }
+    //包含關鍵字跟課程列表的api
     @GetMapping("/search")
     public ResponseEntity<List<Object[]>> searchCourses(@RequestParam(required = false, defaultValue = "") String keyword) {
         List<Object[]> courses = courseService.searchCourses(keyword);
         return ResponseEntity.ok(courses);
     }
+    //呼叫團體課程
     @GetMapping("/byType")
     public ResponseEntity<List<Course>> getCoursesByType(@RequestParam(required = false, defaultValue = "2") int courseType) {
         List<Course> courses = courseService.getCoursesByType(courseType);

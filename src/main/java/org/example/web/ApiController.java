@@ -3,6 +3,8 @@ package org.example.web;
 import org.example.entity.User;
 import org.example.model.LoginRequest;
 import org.example.model.UserDataResponse;
+import org.example.service.sql.AttendanceService;
+import org.example.service.sql.TipService;
 import org.example.service.sql.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 import static org.example.service.SHAService.getSHA256StrJava;
 
@@ -21,9 +24,14 @@ import static org.example.service.SHAService.getSHA256StrJava;
 @RequestMapping("/")
 public class ApiController {
 
+
     @Autowired
     private UserService userService;
-
+    private AttendanceService attendanceService;
+    @Autowired
+    public ApiController(AttendanceService attendanceService) {
+        this.attendanceService = attendanceService;
+    }
     @GetMapping("/init")
     public String init(){
         User user = null;//為了確保每個迴圈迭代都使用獨立的 User 物件，以便在每次循環中填充不同的數據。
@@ -100,12 +108,31 @@ public class ApiController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session ID 無效 or 尚未登入"); // 用戶未登入或 Session ID 無效
         }
     }
+    @GetMapping("/api/score")
+    public ResponseEntity<List<Object[]>> getScore(HttpSession session) {
+        String sessionId = session.getId();
+        String username = (String) session.getAttribute("username");
+        System.out.println("sessionId:"+sessionId);
+        User user = userService.findByUsername(username);
+        List<Object[]> scoreData = attendanceService.getScoreDetailsByUsername(username);
+        return ResponseEntity.ok(scoreData);
+    }
     @GetMapping("/logout")
     public ResponseEntity<String> logout(HttpSession session) {
         session.invalidate();
         return ResponseEntity.ok("登出成功");
     }
-
+    @GetMapping("/studentlist")
+    public List<?> getStudentList(@RequestParam(required = false) String keyword) {
+        if (keyword != null && !keyword.isEmpty()) {
+            //提供關鍵字搜尋人的名字
+            List<User> studentList = userService.searchStudentsByKeyword(keyword);
+            return studentList;
+        } else {
+            List<String> allStudents = userService.getAllStudentNames();
+            return allStudents;
+        }
+    }
     @GetMapping("/userByName/{username}")
     public User getUserByName(@PathVariable("username") String username){
 

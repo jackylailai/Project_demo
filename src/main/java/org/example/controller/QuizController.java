@@ -22,7 +22,7 @@ public class QuizController {
         this.quizService = quizService;
     }
     @GetMapping("/{unitId}")
-    public ResponseEntity<List<Quiz>> getQuizzesByUnitId(@PathVariable int unitId) {
+    public ResponseEntity<List<Quiz>> getQuizzesByUnitId(@PathVariable Long unitId) {
         List<Quiz> quizzes = quizService.getQuizzesByUnitId(unitId);
         if (quizzes.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -30,7 +30,7 @@ public class QuizController {
         return ResponseEntity.ok(quizzes);
     }
     @GetMapping("/title/{unitId}")
-    public String getQuizTitle(@PathVariable int unitId) throws NotFoundException {
+    public String getQuizTitle(@PathVariable Long unitId) throws NotFoundException {
         String title = quizService.getQuizTitleByUnitId(unitId);
         if (title != null) {
             return title;

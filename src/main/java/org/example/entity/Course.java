@@ -14,9 +14,9 @@ import java.util.List;
 public class Course implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    private int courseId;
+    private Long courseId;
     private int courseType;
     private String courseName;
     private String courseSchedule;

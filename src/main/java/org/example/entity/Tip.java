@@ -11,16 +11,16 @@ import java.util.Date;
 public class Tip implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "tipId")
-    private int tipId;
+    private Long tipId;
 
     @Column(name = "unitId")
-    private int unitId;
+    private Long unitId;
 
     @Column(name = "contentId")
-    private int contentId;
+    private Long contentId;
 
     private String title;
 

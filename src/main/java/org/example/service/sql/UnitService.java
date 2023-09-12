@@ -15,10 +15,10 @@ public class UnitService{
     public UnitService(UnitRepository UnitRepository) {
         this.UnitRepository = UnitRepository;
     }
-    public List<Object[]> getUnitDetailsByCourseId(int courseId) {
+    public List<Object[]> getUnitDetailsByCourseId(Long courseId) {
         return UnitRepository.findUnitDetailsByCourseId(courseId);
     }
-    public List<Object[]> getDescAndContentByUnitId(int unitId) {
+    public List<Object[]> getDescAndContentByUnitId(Long unitId) {
         return UnitRepository.findDescAndContentByUnitId(unitId);
     }
     public Unit save(Unit Unit) {
@@ -28,7 +28,7 @@ public class UnitService{
     public List<Unit> findAll() {
         return UnitRepository.findAll();
     }
-    public String getVideoUrlByUnitId(int unitId) {
+    public String getVideoUrlByUnitId(Long unitId) {
         String videoUrl = UnitRepository.findVideoUrlByUnitId(unitId);
         return videoUrl;
     }

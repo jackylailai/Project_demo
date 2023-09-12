@@ -20,16 +20,16 @@ public class UnitController {
     }
 
     @GetMapping("/details")
-    public ResponseEntity<List<Object[]>> getUnitDetails(@RequestParam("courseId") int courseId) {
+    public ResponseEntity<List<Object[]>> getUnitDetails(@RequestParam("courseId") Long courseId) {
         List<Object[]> unitData = unitService.getUnitDetailsByCourseId(courseId);
         return ResponseEntity.ok(unitData);
     }
     @GetMapping("/{unitId}")
-    public List<Object[]> getDescAndContentByUnitId(@PathVariable int unitId) {
+    public List<Object[]> getDescAndContentByUnitId(@PathVariable Long unitId) {
         return unitService.getDescAndContentByUnitId(unitId);
     }
     @GetMapping("/videosUrl/{unitId}")
-    public ResponseEntity<String> getVideoUrlByUnitId(@PathVariable int unitId) {
+    public ResponseEntity<String> getVideoUrlByUnitId(@PathVariable Long unitId) {
 
         String videoUrl = unitService.getVideoUrlByUnitId(unitId);
 
@@ -40,7 +40,7 @@ public class UnitController {
         }
     }
     @GetMapping("/tipTitle/{unitId}")
-    public ResponseEntity<List<String>> getTipTitlesByUnitId(@PathVariable int unitId) {
+    public ResponseEntity<List<String>> getTipTitlesByUnitId(@PathVariable Long unitId) {
         List<String> tipTitles = tipService.getTipTitlesByUnitId(unitId);
 
         if (!tipTitles.isEmpty()) {

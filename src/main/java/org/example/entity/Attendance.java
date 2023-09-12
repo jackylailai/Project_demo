@@ -8,38 +8,39 @@ import java.util.Date;
 public class Attendance implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
+    private String username;
 
-    @Column(name = "username")
-    private Integer username;
+    private Long courseId;
 
-    @Column(name = "courseId")
-    private Integer courseId;
+    private Long unitId;
 
-    @Column(name = "unitId")
-    private Integer unitId;
-
-    @Column(name = "date")
     private String date;
 
-    @Column(name = "team")
     private Integer team;
 
-    @Column(name = "role")
     private Integer role;
 
-    @Column(name = "score")
     private Integer score;
 
-    @Column(name = "state")
     private Integer state;
 
-    @Column(name = "longDate")
     private Long longDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
+
+    public Long getUnitId() {
+        return unitId;
+    }
+
+    public int getScore() {
+        return score;
+    }
+    public String getUsername() {
+        return username;
+    }
 
 
     // Getter and Setter 方法
