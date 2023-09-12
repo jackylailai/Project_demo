@@ -10,6 +10,5 @@ import java.util.List;
 public interface QuestionAnswerRepository extends JpaRepository<QuestionAnswer, Long> {
     QuestionAnswer save(QuestionAnswer questionAnswer);
 
-    List<QuestionAnswer> findAll();
 }
 

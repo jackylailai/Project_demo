@@ -1,4 +1,4 @@
-package org.example.service;
+package org.example.service.sql;
 
 import org.example.entity.User;
 import org.example.repository.UserRepository;
@@ -7,6 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("userService")
 public class UserService {
@@ -51,4 +54,16 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public List<User> searchStudentsByKeyword(String keyword) {
+        return userRepository.searchStudentsByKeyword(keyword);
+    }
+
+    public List<String> getAllStudentNames() {
+        List<User> students = userRepository.findAll();
+        List<String> studentNames = new ArrayList<>();
+        for (User student : students) {
+            studentNames.add(student.getName());
+        }
+        return studentNames;
+    }
 }

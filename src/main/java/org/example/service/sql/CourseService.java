@@ -1,4 +1,4 @@
-package org.example.service;
+package org.example.service.sql;
 
 import org.example.entity.Course;
 import org.example.repository.CourseRepository;
@@ -22,5 +22,11 @@ public class CourseService {
 
     public List<Course> findCoursesByCourseName(String courseName) {
         return courseRepository.findByCourseName(courseName);
+    }
+    public List<Object[]> searchCourses(String keyword) {
+        return courseRepository.searchCourses(keyword);
+    }
+    public List<Course> getCoursesByType(int courseType) {
+        return courseRepository.findByCourseType(courseType);
     }
 }

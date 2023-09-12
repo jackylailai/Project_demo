@@ -6,8 +6,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
+import java.util.List;
+
 //用於訪問資料庫user的實體
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -28,4 +31,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int updateById(String name, Long id);
 
     User findByUsername(String username);
+
+    @Query("SELECT u FROM User u WHERE u.username LIKE %:keyword%")
+    List<User> searchStudentsByKeyword(@Param("keyword") String keyword);
 }

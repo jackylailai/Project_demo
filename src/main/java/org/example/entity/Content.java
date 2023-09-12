@@ -1,31 +1,30 @@
 package org.example.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
-@Data//會自動生成一些通用的方法，包括 getter 和 setter 方法
+
 @Entity
-@Table(name = "QuestionAnswer")
-public class QuestionAnswer {
+@Table(name = "content")
+public class Content implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Integer qaSeq;
-
-    private Integer unitSeq;
-
-    private String title;
-
+    private Long unitId;
+    private Long contentId;
     private String content;
-
-    private Integer score;
+    private String pictureUrl1;
+    private String pictureUrl2;
+    private String pictureUrl3;
+    private String pictureUrl4;
     private int state;
     private long longDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
-    // Getter and Setter 方法
+
+    // Getters and setters
+    // Constructors
 }
+

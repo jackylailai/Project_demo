@@ -1,7 +1,10 @@
 package org.example.entity;
 
-import javax.persistence.*;
+import lombok.Data;
 
+import javax.persistence.*;
+import java.util.Date;
+@Data//會自動生成一些通用的方法，包括 getter 和 setter 方法
 @Entity
 @Table(name = "Quiz")
 public class Quiz {
@@ -9,11 +12,8 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "quizSeq")
-    private Integer quizSeq;
-
-    @Column(name = "unitSeq")
-    private Integer unitSeq;
+    private Long quizId;
+    private Long unitId;
 
     @Column(name = "title")
     private String title;
@@ -27,14 +27,12 @@ public class Quiz {
     private Integer essayQuiz;
     @Column(name = "answer")
     private String answer;
-    @Column(name = "state")
-    private Integer state;
-    @Column(name = "longDate")
+    private int state;
     private long longDate;
-    @Column(name = "createDate")
-    private long createDate;
-    @Column(name = "updateDate")
-    private long updateDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updateDate;
 
     // Getter and Setter 方法
 }

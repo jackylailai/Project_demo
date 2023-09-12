@@ -1,4 +1,4 @@
-package org.example.service;
+package org.example.service.sql;
 
 import org.example.entity.Quiz;
 import org.example.repository.QuizRepository;
@@ -20,10 +20,22 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
+    public List<Quiz> getQuizzesByUnitId(Long unitId) {
+        return (List<Quiz>) quizRepository.findByUnitId(unitId);
+    }
 
     public List<Quiz> getAllQuizzes() {
         return quizRepository.findAll();
     }
 
-    // 可以实现其他业务逻辑方法
+    public String getQuizTitleByUnitId(Long unitId) {
+        Quiz quiz = quizRepository.findByUnitId(unitId);
+
+        if (quiz != null) {
+            return quiz.toString();
+        } else {
+            return null;
+        }
+    }
+
 }
