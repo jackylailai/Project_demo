@@ -15,7 +15,8 @@ public class OperationService {
         this.operationRepository = operationRepository;
     }
 
-    public Operation save(Operation operation) {
+
+    public Operation saveOperation(Operation operation) {
         return operationRepository.save(operation);
     }
 

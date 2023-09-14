@@ -32,5 +32,13 @@ public class UnitService{
         String videoUrl = UnitRepository.findVideoUrlByUnitId(unitId);
         return videoUrl;
     }
+
+    public Unit getUnitsByUnitId(Long unitId) {
+        return UnitRepository.findAllByUnitId(unitId);
+    }
+
+    public Unit saveUnit(Unit unit) {
+        return UnitRepository.save(unit);
+    }
 }
 

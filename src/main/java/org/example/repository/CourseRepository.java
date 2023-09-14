@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    @Query("SELECT c.courseName, c.creditUnits FROM Course c WHERE c.courseName LIKE %:keyword%")
-    List<Object[]> searchCourses(@Param("keyword") String keyword);
+    @Query("SELECT c.courseName, c.creditUnits FROM Course c WHERE c.courseName LIKE %:courseName%")
+    List<Object[]> searchCourses(@Param("courseName") String keyword);
     List<Course> findByCourseType(int courseType);
     Course save(Course course);
 

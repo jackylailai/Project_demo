@@ -4,10 +4,7 @@ import org.example.entity.Tip;
 import org.example.service.sql.TipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +28,11 @@ public class TipController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    @PostMapping("/insert")
+    public Tip insertTip(@RequestBody Tip tip) {
+
+        return tipService.saveTip(tip);
     }
 }
 

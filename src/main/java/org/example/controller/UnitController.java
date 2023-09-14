@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import org.example.entity.Tip;
+import org.example.entity.Unit;
 import org.example.service.sql.TipService;
 import org.example.service.sql.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +22,19 @@ public class UnitController {
     }
 
     @GetMapping("/details")
-    public ResponseEntity<List<Object[]>> getUnitDetails(@RequestParam("courseId") Long courseId) {
+    public ResponseEntity<List<Object[]>> getUnitDetails(@RequestParam("course-id") Long courseId) {
         List<Object[]> unitData = unitService.getUnitDetailsByCourseId(courseId);
         return ResponseEntity.ok(unitData);
     }
-    @GetMapping("/{unitId}")
+    @GetMapping("/description/{unitId}")
     public List<Object[]> getDescAndContentByUnitId(@PathVariable Long unitId) {
         return unitService.getDescAndContentByUnitId(unitId);
     }
-    @GetMapping("/videosUrl/{unitId}")
+    @GetMapping("/{unitId}")
+    public Unit getUnitsByCourseId(@PathVariable Long unitId) {
+        return unitService.getUnitsByUnitId(unitId);
+    }
+    @GetMapping("/videos-url/{unitId}")
     public ResponseEntity<String> getVideoUrlByUnitId(@PathVariable Long unitId) {
 
         String videoUrl = unitService.getVideoUrlByUnitId(unitId);
@@ -39,7 +45,7 @@ public class UnitController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/tipTitle/{unitId}")
+    @GetMapping("/tip-title/{unitId}")
     public ResponseEntity<List<String>> getTipTitlesByUnitId(@PathVariable Long unitId) {
         List<String> tipTitles = tipService.getTipTitlesByUnitId(unitId);
 
@@ -48,5 +54,9 @@ public class UnitController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    @PostMapping("/insert")
+    public Unit insertUnit(@RequestBody Unit unit) {
+        return unitService.saveUnit(unit);
     }
 }

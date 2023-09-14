@@ -56,7 +56,7 @@ public class ReportService {
             List<Attendance> attendanceList = attendanceRepository.findByUsername(username);
 
             for (Attendance attendance : attendanceList) {
-                Unit unit = unitRepository.findAllByUnitId(attendance.getUnitId());
+                Unit unit = (Unit) unitRepository.findAllByUnitId(attendance.getUnitId());
 
                 if (unit != null) {
                     User user = userRepository.findByUsername(username);

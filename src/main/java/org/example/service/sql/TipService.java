@@ -58,4 +58,7 @@ public class TipService{
     }
 
 
+    public Tip saveTip(Tip tip) {
+        return tipRepository.save(tip);
+    }
 }
