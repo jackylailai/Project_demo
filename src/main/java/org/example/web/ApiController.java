@@ -21,7 +21,7 @@ import static org.example.service.SHAService.getSHA256StrJava;
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/")
+@RequestMapping("/user")
 public class ApiController {
 
 
@@ -80,7 +80,7 @@ public class ApiController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗，帳號或密碼錯誤");
         }
     }
-    @GetMapping("/getUserData")
+    @GetMapping("/userData")
     public ResponseEntity<?> getUserData(HttpSession session) {
         // 從 Session 中獲取用戶的 Session ID
         String sessionId = session.getId();
@@ -122,11 +122,11 @@ public class ApiController {
         session.invalidate();
         return ResponseEntity.ok("登出成功");
     }
-    @GetMapping("/studentlist")
-    public List<?> getStudentList(@RequestParam(required = false) String keyword) {
-        if (keyword != null && !keyword.isEmpty()) {
+    @GetMapping("/student-list")
+    public List<?> getStudentList(@RequestParam(value="student-username",required = false) String username) {
+        if (username != null && !username.isEmpty()) {
             //提供關鍵字搜尋人的名字
-            List<User> studentList = userService.searchStudentsByKeyword(keyword);
+            List<User> studentList = userService.searchStudentsByKeyword(username);
             return studentList;
         } else {
             List<String> allStudents = userService.getAllStudentNames();

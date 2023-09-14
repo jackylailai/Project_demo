@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.entity.Course;
+import org.example.entity.Unit;
 import org.example.service.sql.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,14 +20,14 @@ public class CourseController {
         this.courseService = courseService;
     }
 
+    @GetMapping
+    public List<Course> getAllCourses() {
+        return courseService.getAllCourses();
+    }
     @PostMapping
     public ResponseEntity<Course> createCourse(@RequestBody Course course) {
         Course createdCourse = courseService.createCourse(course);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCourse);
-    }
-    @GetMapping("/create")
-    public String createCourse() {
-        return "Empty form created.";
     }
     //for test
     @PostMapping("/post")
@@ -37,20 +38,28 @@ public class CourseController {
     }
     //包含關鍵字跟課程列表的api
     @GetMapping("/search")
-    public ResponseEntity<List<Object[]>> searchCourses(@RequestParam(required = false, defaultValue = "") String keyword) {
-        List<Object[]> courses = courseService.searchCourses(keyword);
+    public ResponseEntity<List<Object[]>> searchCourses(@RequestParam(value="course-name",required = false, defaultValue = "") String courseName) {
+        List<Object[]> courses = courseService.searchCourses(courseName);
         return ResponseEntity.ok(courses);
     }
     //呼叫團體課程
-    @GetMapping("/byType")
-    public ResponseEntity<List<Course>> getCoursesByType(@RequestParam(required = false, defaultValue = "2") int courseType) {
+    @GetMapping("/type")
+    public ResponseEntity<List<Course>> getCoursesByType(@RequestParam(value="course-type",required = false, defaultValue = "2") int courseType) {
         List<Course> courses = courseService.getCoursesByType(courseType);
         return ResponseEntity.ok(courses);
     }
-    @GetMapping("/byName/{courseName}")
+    @GetMapping("/name/{courseName}")
     public ResponseEntity<List<Course>> getCoursesByName(@PathVariable String courseName) {
         List<Course> courses = courseService.findCoursesByCourseName(courseName);
         return ResponseEntity.ok(courses);
+    }
+    @GetMapping("/{courseId}")
+    public List<Unit> getUnitsByCourseId(@PathVariable Long courseId) {
+        return courseService.getUnitsByCourseId(courseId);
+    }
+    @PostMapping("/insert")
+    public Course insertCourse(@RequestBody Course course) {
+        return courseService.saveCourse(course);
     }
 }
 

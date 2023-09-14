@@ -37,5 +37,7 @@ public class QuizService {
             return null;
         }
     }
-
+    public Quiz saveQuiz(Quiz quiz) {
+        return quizRepository.save(quiz);
+    }
 }

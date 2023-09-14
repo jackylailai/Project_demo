@@ -12,14 +12,8 @@ public class Tip implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "tipId")
     private Long tipId;
-
-    @Column(name = "unitId")
     private Long unitId;
-
-    @Column(name = "contentId")
     private Long contentId;
 
     private String title;

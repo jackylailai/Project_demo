@@ -11,21 +11,13 @@ public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long quizId;
     private Long unitId;
-
-    @Column(name = "title")
     private String title;
-
-    @Column(name = "content")
     private String content;
 
-    @Column(name = "tofQuiz")
     private Integer tofQuiz;
-    @Column(name = "essayQuiz")
     private Integer essayQuiz;
-    @Column(name = "answer")
     private String answer;
     private int state;
     private long longDate;

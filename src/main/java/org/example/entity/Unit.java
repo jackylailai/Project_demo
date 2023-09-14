@@ -16,7 +16,6 @@ public class Unit implements Serializable {
 
     private Long courseId;
 
-
     private Long unitId;
 
 

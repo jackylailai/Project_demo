@@ -20,4 +20,5 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
     String findVideoUrlByUnitId(Long unitId);
 
     Unit findAllByUnitId(Long unitId);
+    List<Unit> findByCourseId(Long courseId);
 }

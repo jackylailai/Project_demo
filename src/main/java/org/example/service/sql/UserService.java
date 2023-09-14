@@ -54,8 +54,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> searchStudentsByKeyword(String keyword) {
-        return userRepository.searchStudentsByKeyword(keyword);
+    public List<User> searchStudentsByKeyword(String username) {
+        return userRepository.searchStudentsByUsername(username);
     }
 
     public List<String> getAllStudentNames() {
