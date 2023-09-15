@@ -19,14 +19,16 @@ public class TipController {
         this.tipService = tipService;
     }
 
-    @GetMapping("/{tipId}")
-    public ResponseEntity<Tip> getTipById(@PathVariable Long tipId) {
-        List<Tip> tips = (List<Tip>) tipService.getTipByTipId(tipId);
+    @GetMapping("/{unitId}")
+    public ResponseEntity<List<Tip>> getTipByUnitId(@PathVariable Long unitId) {
+        List<Tip> tip =tipService.getTipByUnitId(unitId);
 
-        if (tips.isEmpty()) {
-            return ResponseEntity.ok((Tip) tips);
-        } else {
+        if (tip.isEmpty()) {
+            System.out.println("沒有找到");
             return ResponseEntity.notFound().build();
+        } else {
+            System.out.println("有找到");
+            return ResponseEntity.ok(tip);
         }
     }
     @PostMapping("/insert")

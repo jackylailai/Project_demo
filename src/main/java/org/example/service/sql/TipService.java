@@ -19,9 +19,9 @@ public class TipService{
         this.tipRepository = tipRepository;
     }
 
-    public Tip getTipById(Long id) {
-        return tipRepository.findById(id).orElse(null);
-    }
+//    public Tip getTipById(Long id) {
+//        return tipRepository.findByunitId(id).orElse(null);
+//    }
 
 
     public List<Tip> getAllTips() {
@@ -53,8 +53,9 @@ public class TipService{
         return tipRepository.findByTipId(tipId);
     }
 
-    public List<String> getTipTitlesByUnitId(Long unitId) {
-        return tipRepository.findTitlesByUnitId(unitId);
+    public List<Tip> getTipByUnitId(Long unitId) {
+        System.out.println("丟入id到service");
+        return tipRepository.findByUnitId(unitId);
     }
 
 

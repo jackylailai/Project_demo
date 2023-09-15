@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.example.service.SHAService.getSHA256StrJava;
+
 @Service("userService")
 public class UserService {
     @Autowired
@@ -51,6 +53,8 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
     public User saveUser(User user) {
+        String hashedPassword = getSHA256StrJava(user.getPassword());
+        user.setPassword(hashedPassword);
         return userRepository.save(user);
     }
 

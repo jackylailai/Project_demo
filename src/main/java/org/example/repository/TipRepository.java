@@ -24,4 +24,5 @@ public interface TipRepository extends JpaRepository<Tip, Long> {
     @Query("SELECT t.title FROM Tip t WHERE t.unitId = :unitId")
     List<String> findTitlesByUnitId(@Param("unitId") Long unitId);
 
+    List<Tip> findByUnitId(Long unitId);
 }

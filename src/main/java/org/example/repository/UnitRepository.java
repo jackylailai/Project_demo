@@ -17,8 +17,11 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
     @Query("SELECT u.descTitle1, u.descContent1, u.descTitle2, u.descContent2 FROM Unit u WHERE u.unitId = ?1 ")
     List<Object[]> findDescAndContentByUnitId(Long unitId);
     List<Unit> findAll();
-    String findVideoUrlByUnitId(Long unitId);
+    Unit findVideoUrlByUnitId(Long unitId);
 
     Unit findAllByUnitId(Long unitId);
     List<Unit> findByCourseId(Long courseId);
+
+    void deleteByUnitId(Long unitId);
+
 }

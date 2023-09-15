@@ -18,23 +18,33 @@ public class QuizController {
     public QuizController(QuizService quizService) {
         this.quizService = quizService;
     }
-    @GetMapping("/{unitId}")
-    public ResponseEntity<List<Quiz>> getQuizzesByUnitId(@PathVariable Long unitId) {
-        List<Quiz> quizzes = quizService.getQuizzesByUnitId(unitId);
+    @GetMapping("/")
+    public ResponseEntity<List<Quiz>> getAllQuizzes() {
+        List<Quiz> quizzes = quizService.getAllQuizzes();
         if (quizzes.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(quizzes);
     }
-    @GetMapping("/title/{unitId}")
-    public String getQuizTitle(@PathVariable Long unitId) throws NotFoundException {
-        String title = quizService.getQuizTitleByUnitId(unitId);
-        if (title != null) {
-            return title;
-        } else {
-            throw new NotFoundException("Quiz title not found for unitId: " + unitId);
+
+
+    @GetMapping("/{unitId}")
+    public ResponseEntity<List<Quiz>> getQuizzesByUnitId(@PathVariable Long unitId) {
+        List<Quiz> quiz = quizService.getQuizzesByUnitId(unitId);
+        if (quiz == null) {
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(quiz);
     }
+//    @GetMapping("/title/{unitId}")
+//    public String getQuizTitle(@PathVariable Long unitId) throws NotFoundException {
+//        String title = quizService.getQuizTitleByUnitId(unitId);
+//        if (title != null) {
+//            return title;
+//        } else {
+//            throw new NotFoundException("Quiz title not found for unitId: " + unitId);
+//        }
+//    }
     @PostMapping("/insert")
     public Quiz insertQuiz(@RequestBody Quiz quiz) {
 

@@ -1,6 +1,8 @@
 package org.example.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,12 +21,20 @@ public class Quiz {
     private Integer tofQuiz;
     private Integer essayQuiz;
     private String answer;
+
+
+
     private int state;
     private long longDate;
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
+    public Quiz() {
+        this.longDate = System.currentTimeMillis();
+    }
 
     // Getter and Setter 方法
 }

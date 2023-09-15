@@ -1,5 +1,8 @@
 package org.example.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -13,17 +16,19 @@ public class Content implements Serializable {
     private Long unitId;
     private Long contentId;
     private String content;
-    private String pictureUrl1;
-    private String pictureUrl2;
-    private String pictureUrl3;
-    private String pictureUrl4;
+    private int contentOrder;
+
     private int state;
     private long longDate;
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
-
+    public Content() {
+        this.longDate = System.currentTimeMillis();
+    }
     // Getters and setters
     // Constructors
 }

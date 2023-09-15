@@ -21,23 +21,24 @@ public class QuizService {
     }
 
     public List<Quiz> getQuizzesByUnitId(Long unitId) {
-        return (List<Quiz>) quizRepository.findByUnitId(unitId);
+        return quizRepository.findByUnitId(unitId);
     }
 
     public List<Quiz> getAllQuizzes() {
         return quizRepository.findAll();
     }
 
-    public String getQuizTitleByUnitId(Long unitId) {
-        Quiz quiz = quizRepository.findByUnitId(unitId);
-
-        if (quiz != null) {
-            return quiz.toString();
-        } else {
-            return null;
-        }
-    }
+//    public String getQuizTitleByUnitId(Long unitId) {
+//        List<Quiz> quiz = quizRepository.findByUnitId(unitId);
+//
+//        if (quiz != null) {
+//            return quiz.toString();
+//        } else {
+//            return null;
+//        }
+//    }
     public Quiz saveQuiz(Quiz quiz) {
         return quizRepository.save(quiz);
     }
+
 }

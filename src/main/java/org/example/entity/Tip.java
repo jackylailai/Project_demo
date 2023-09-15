@@ -3,6 +3,9 @@ package org.example.entity;
 import javax.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.io.Serializable;
 import java.util.Date;
 @Data//會自動生成一些通用的方法，包括 getter 和 setter 方法
@@ -22,10 +25,14 @@ public class Tip implements Serializable {
 
     private int state;
     private long longDate;
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
-
+    public Tip() {
+        this.longDate = System.currentTimeMillis();
+    }
     // Getter and Setter methods
 }

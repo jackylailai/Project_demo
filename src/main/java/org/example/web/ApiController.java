@@ -1,5 +1,6 @@
 package org.example.web;
 
+import org.example.entity.Tip;
 import org.example.entity.User;
 import org.example.model.LoginRequest;
 import org.example.model.UserDataResponse;
@@ -155,5 +156,10 @@ public class ApiController {
     public Page<User> getPage(){
 
         return userService.findPage();
+    }
+    @PostMapping("/insert")
+    public User insertUser(@RequestBody User user) {
+
+        return userService.saveUser(user);
     }
 }

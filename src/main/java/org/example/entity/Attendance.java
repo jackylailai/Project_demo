@@ -1,5 +1,8 @@
 package org.example.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -11,24 +14,20 @@ public class Attendance implements Serializable {
     private Long id;
     private String username;
     private Long attendanceId;
-
     private Long courseId;
-
     private Long unitId;
-
     private String date;
-
     private Integer team;
-
     private Integer role;
-
     private Integer score;
 
-    private Integer state;
 
+    private Integer state;
     private Long longDate;
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
 
@@ -43,7 +42,9 @@ public class Attendance implements Serializable {
         return username;
     }
 
-
+    public Attendance() {
+        this.longDate = System.currentTimeMillis();
+    }
     // Getter and Setter 方法
 }
 

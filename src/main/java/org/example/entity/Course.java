@@ -3,6 +3,8 @@ package org.example.entity;
 
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,11 +25,16 @@ public class Course implements Serializable  {
     private int creditUnits;
     private int state;
     private long longDate;
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
     private String studentList;
+    public Course() {
+        this.longDate = System.currentTimeMillis();
+    }
     // Getters and setters
 }
 
