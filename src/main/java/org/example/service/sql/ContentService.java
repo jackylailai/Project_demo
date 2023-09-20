@@ -25,18 +25,13 @@ public class ContentService {
         return contentRepository.findById(id);
     }
 
-    public Content createContent(Content content) {
-        // You can add any business logic/validation here before saving
-        return contentRepository.save(content);
-    }
-
-    public Content updateContent(Content content) {
-        // You can add any business logic/validation here before updating
-        return contentRepository.save(content);
-    }
 
     public void deleteContent(Long id) {
         contentRepository.deleteById(id);
+    }
+
+    public Content saveContent(Content content) {
+        return contentRepository.save(content);
     }
 }
 

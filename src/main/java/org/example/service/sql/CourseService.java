@@ -44,4 +44,10 @@ public class CourseService {
     public Course saveCourse(Course course) {
         return courseRepository.save(course);
     }
+    public boolean deleteCourseByCourseId(Long courseId) {
+
+        courseRepository.deleteCourseByCourseId(courseId);
+
+        return !courseRepository.existsById(courseId);
+    }
 }

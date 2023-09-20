@@ -50,7 +50,7 @@ public class ApiController {
         return "初始化完成。";
     }
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpSession session) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpSession session) {
         User user = userService.findByUsername(loginRequest.getUsername());
         //我只要抓到這個entity我就可以對其資料庫的內容作核對，後方的.getPassword
         //接著我需要將取得的password做hash加密確認是否一樣
@@ -58,6 +58,9 @@ public class ApiController {
         System.out.println("SHA-256 雜湊值(user輸入的password): " + sha256HashConfirm);
         System.out.println("SHA-256 雜湊值(資料庫實際此user的密碼欄位): " + user.getPassword());
         if (user != null && user.getPassword().equals(sha256HashConfirm)) {
+            int level = user.getLevel(); //拿level
+            String name = user.getName();
+
             // 生成 Session ID
             String sessionId = session.getId();
             session.setAttribute("sessionId", sessionId);
@@ -76,7 +79,10 @@ public class ApiController {
 //                System.out.println("session內容物名稱:" + attributeName);
 //                System.out.println("session內容物:" + attributeValue);
 //            }
-            return ResponseEntity.ok("登入成功 sessionId:" + sessionId);
+            UserDataResponse userDataResponse = new UserDataResponse();
+            userDataResponse.setLevel(level); // 設置 level
+            userDataResponse.setName(name);
+            return ResponseEntity.ok(userDataResponse);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗，帳號或密碼錯誤");
         }

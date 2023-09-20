@@ -18,4 +18,5 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     // 查询操作
     List<Course> findByCourseName(String courseName);
+    void deleteCourseByCourseId(Long courseId);
 }

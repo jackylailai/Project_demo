@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/course")
@@ -60,6 +61,15 @@ public class CourseController {
     @PostMapping("/insert")
     public Course insertCourse(@RequestBody Course course) {
         return courseService.saveCourse(course);
+    }
+    @DeleteMapping("/{courseId}")
+    public ResponseEntity<Void> deleteCourseByCourseId(@PathVariable Long courseId) {
+        boolean deleted = courseService.deleteCourseByCourseId(courseId);
+        if (deleted) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
 
