@@ -36,6 +36,12 @@ public class UnitService{
     }
 
     public Unit getUnitsByUnitId(Long unitId) {
+        Unit unit = unitRepository.findAllByUnitId(unitId);
+        if (unit != null) {
+            System.out.println("確實有找到unit"+unit);
+        } else {
+            System.out.println("沒有找到unit");
+        }
         return unitRepository.findAllByUnitId(unitId);
     }
 

@@ -29,6 +29,8 @@ public class Unit implements Serializable {
     private String descTitle2;
 //測驗說明
     private String descContent2;
+    private String descTitle3;
+    private String descContent3;
     private String videoUrl;
     private String videoFormat;
     private String dfcsFilename;
