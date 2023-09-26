@@ -13,6 +13,7 @@ public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long quizId;
     private Long unitId;
     private String title;

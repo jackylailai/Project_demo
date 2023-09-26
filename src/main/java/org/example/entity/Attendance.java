@@ -13,6 +13,7 @@ public class Attendance implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long attendanceId;
     private Long courseId;
     private Long unitId;

@@ -16,6 +16,7 @@ public class Content implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long unitId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contentId;
     private String content;
     private int contentOrder;

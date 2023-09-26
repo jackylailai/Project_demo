@@ -18,6 +18,7 @@ public class Unit implements Serializable {
 
     private Long courseId;
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long unitId;
     private String unitName;
     private String unitSchedule;
