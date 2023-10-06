@@ -44,7 +44,7 @@ public class ApiController {
             String sha256HashPassword = getSHA256StrJava(password);
             System.out.println("SHA-256 雜湊值(存入資料庫密碼欄位): " + sha256HashPassword);
             user.setPassword(sha256HashPassword);
-            user.setGrade((long) (i*10));
+//            user.setGrade((long) (i*10));
             userService.save(user);
         }
         return "初始化完成。";
@@ -108,7 +108,7 @@ public class ApiController {
         if (!isNewSession && sessionId != null && username != null) {
             UserDataResponse userDataResponse = new UserDataResponse();
             userDataResponse.setName(user.getName());
-            userDataResponse.setGrade(user.getGrade());
+//            userDataResponse.setGrade(user.getGrade());
             System.out.println("userDataResponse:"+userDataResponse);
             return ResponseEntity.ok(userDataResponse); // 回傳用戶名字和成績資料
         } else {

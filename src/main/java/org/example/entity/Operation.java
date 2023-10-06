@@ -1,5 +1,5 @@
 package org.example.entity;
-
+//schema 答對是否往下走 答錯就斷
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

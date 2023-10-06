@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     Attendance save(Attendance attendance);
-    @Query("SELECT a.score, a.date FROM Attendance a WHERE a.username = :username")
+    @Query("SELECT a.score, a.attendanceDate FROM Attendance a WHERE a.username = :username")
     List<Object[]> getScoreDetailsByUsername(@Param("username") String username);
 
     List<Attendance> findByUsername(String username);

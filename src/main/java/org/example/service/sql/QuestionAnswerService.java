@@ -25,5 +25,4 @@ public class QuestionAnswerService {
         return questionAnswerRepository.findAll();
     }
 
-    // 可以实现其他业务逻辑方法
 }

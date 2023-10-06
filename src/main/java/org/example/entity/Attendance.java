@@ -17,7 +17,11 @@ public class Attendance implements Serializable {
     private Long attendanceId;
     private Long courseId;
     private Long unitId;
-    private String date;
+    private Long contentId;
+    private Long quizId;
+    private Date attendanceDate;
+    private int recordScore;
+    private String recordShot;
     private Integer team;
     private Integer role;
     private Integer score;
