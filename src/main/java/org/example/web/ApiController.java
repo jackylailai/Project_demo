@@ -54,24 +54,25 @@ public class ApiController {
         User user = userService.findByUsername(loginRequest.getUsername());
         //我只要抓到這個entity我就可以對其資料庫的內容作核對，後方的.getPassword
         //接著我需要將取得的password做hash加密確認是否一樣
-        String sha256HashConfirm = getSHA256StrJava(loginRequest.getPassword());
-        System.out.println("SHA-256 雜湊值(user輸入的password): " + sha256HashConfirm);
-        System.out.println("SHA-256 雜湊值(資料庫實際此user的密碼欄位): " + user.getPassword());
-        if (user != null && user.getPassword().equals(sha256HashConfirm)) {
-            int level = user.getLevel(); //拿level
-            String name = user.getName();
+        try {
+            String sha256HashConfirm = getSHA256StrJava(loginRequest.getPassword());
+            System.out.println("SHA-256 雜湊值(user輸入的password): " + sha256HashConfirm);
+            System.out.println("SHA-256 雜湊值(資料庫實際此user的密碼欄位): " + user.getPassword());
+            if (user != null && user.getPassword().equals(sha256HashConfirm)) {
+                int level = user.getLevel(); //拿level
+                String name = user.getName();
 
-            // 生成 Session ID
-            String sessionId = session.getId();
-            session.setAttribute("sessionId", sessionId);
-            session.setAttribute("username", loginRequest.getUsername());
-            Date creationTime = new Date();
-            session.setAttribute("creationTime",creationTime);
-            Date expirationTime = new Date(creationTime.getTime() + session.getMaxInactiveInterval() * 1000L);
-            session.setAttribute("expirationTime", expirationTime);
-            System.out.println(creationTime);
-            System.out.println(expirationTime);
-            System.out.println("登入成功你的sessionId:" + sessionId);
+                // 生成 Session ID
+                String sessionId = session.getId();
+                session.setAttribute("sessionId", sessionId);
+                session.setAttribute("username", loginRequest.getUsername());
+                Date creationTime = new Date();
+                session.setAttribute("creationTime", creationTime);
+                Date expirationTime = new Date(creationTime.getTime() + session.getMaxInactiveInterval() * 1000L);
+                session.setAttribute("expirationTime", expirationTime);
+                System.out.println(creationTime);
+                System.out.println(expirationTime);
+                System.out.println("登入成功你的sessionId:" + sessionId);
 //            Enumeration<String> attributeNames = session.getAttributeNames();
 //            while (((Enumeration<?>) attributeNames).hasMoreElements()) {
 //                String attributeName = attributeNames.nextElement();
@@ -79,12 +80,16 @@ public class ApiController {
 //                System.out.println("session內容物名稱:" + attributeName);
 //                System.out.println("session內容物:" + attributeValue);
 //            }
-            UserDataResponse userDataResponse = new UserDataResponse();
-            userDataResponse.setLevel(level); // 設置 level
-            userDataResponse.setName(name);
-            return ResponseEntity.ok(userDataResponse);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗，帳號或密碼錯誤");
+                UserDataResponse userDataResponse = new UserDataResponse();
+                userDataResponse.setLevel(level); // 設置 level
+                userDataResponse.setName(name);
+                return ResponseEntity.ok(userDataResponse);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗，帳號或密碼錯誤");
+            }
+        }catch(NullPointerException e){
+            System.out.println("db沒找到");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("DB沒找到");
         }
     }
     @GetMapping("/userData")
