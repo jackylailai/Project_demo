@@ -19,7 +19,7 @@ public class Operation {
     private Long contentId;
     private String title;
     private String titleCH;
-    private Integer answer;
+    private String answer;
     private Integer group1;
     private Integer group2;
     private Integer group3;

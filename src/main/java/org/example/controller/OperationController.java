@@ -27,6 +27,7 @@ public class OperationController {
     }
     @GetMapping("/{unitId}")
     public ResponseEntity<List<Operation>> getOperationByUnitId(@PathVariable Long unitId) {
+        System.out.println("打api unitID找Operation"+unitId);
         List<Operation> operation = operationService.getOperationByUnitId(unitId);
         if (operation == null) {
             return ResponseEntity.notFound().build();
