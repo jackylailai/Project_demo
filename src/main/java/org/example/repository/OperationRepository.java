@@ -9,4 +9,5 @@ import java.util.List;
 public interface OperationRepository extends JpaRepository<Operation, Long> {
     Operation save(Operation operation);
 
+    List<Operation> findByUnitId(Long unitId);
 }

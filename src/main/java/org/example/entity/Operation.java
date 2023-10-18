@@ -16,6 +16,7 @@ public class Operation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long operId;
     private Long unitId;
+    private Long contentId;
     private String title;
     private String titleCH;
     private Integer answer;
@@ -23,6 +24,7 @@ public class Operation {
     private Integer group2;
     private Integer group3;
     private Integer group4;
+    private String pictureName;
     private int state;
     private long longDate;
     @CreationTimestamp

@@ -25,4 +25,7 @@ public class OperationService {
         return operationRepository.findAll();
     }
 
+    public List<Operation> getOperationByUnitId(Long unitId) {
+        return operationRepository.findByUnitId(unitId);
+    }
 }

@@ -1,9 +1,11 @@
 package org.example.controller;
 
 import org.example.entity.Operation;
-        import org.example.service.sql.OperationService;
+import org.example.entity.Quiz;
+import org.example.service.sql.OperationService;
         import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
         import java.util.List;
 
@@ -22,5 +24,13 @@ public class OperationController {
     public Operation insertOperation(@RequestBody Operation operation) {
 
         return operationService.saveOperation(operation);
+    }
+    @GetMapping("/{unitId}")
+    public ResponseEntity<List<Operation>> getOperationByUnitId(@PathVariable Long unitId) {
+        List<Operation> operation = operationService.getOperationByUnitId(unitId);
+        if (operation == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(operation);
     }
 }
