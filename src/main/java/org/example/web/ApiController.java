@@ -12,11 +12,14 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 import static org.example.service.SHAService.getSHA256StrJava;
 
@@ -173,4 +176,22 @@ public class ApiController {
 
         return userService.saveUser(user);
     }
+    @GetMapping("/online-controller")
+    public CompletableFuture<ResponseEntity<String>> onlineEndpoint() {
+        CompletableFuture<String> result = simulateProcessingAsync();
+        return result.thenApply(scoreData -> ResponseEntity.ok(scoreData));
+    }
+
+    @Async
+    public CompletableFuture<String> simulateProcessingAsync() {
+        try {
+            System.out.println("收到訊息開始倒數");
+            TimeUnit.SECONDS.sleep(15);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("Sending 200 OK response.");
+        return CompletableFuture.completedFuture("Request received. Processing...");
+    }
+
 }
