@@ -15,10 +15,7 @@ import org.example.service.sql.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @ChannelHandler.Sharable
@@ -29,7 +26,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         this.userService = userService;
         System.out.println("userService in constructor: "+userService);
     }
-
+    private static int countsForTest = 1;
     private static final ChannelGroup channelOnlineGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);//查看上線
     private static final ChannelGroup channelGroup1 = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private static final ChannelGroup channelGroup2 = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
@@ -47,6 +44,44 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         System.out.println(channelInfo);
         String clientmessage = channelInfo+"client"+ctx.channel().remoteAddress()+"的訊息:"+byteBuf.toString(CharsetUtil.UTF_8);
         System.out.println("\n" + "收到 client 端" + ctx.channel().remoteAddress() + "的消息：" + byteBuf.toString(CharsetUtil.UTF_8));
+        if(Objects.equals(byteBuf.toString(CharsetUtil.UTF_8), "get")){
+            if (countsForTest==1) {
+                System.out.println("1同學執行操作中，給1題目");
+                System.out.println("countsForTest數量為:" + countsForTest);
+                countsForTest += 1;
+                clientRealMessage = "channel1";
+            }else if(countsForTest==2){
+                System.out.println("1同學執行操作中，封鎖2同學行動");
+                System.out.println("countsForTest數量為:" + countsForTest);
+                clientRealMessage = "channel2";
+                countsForTest += 1;
+            }
+        } else if (Objects.equals(byteBuf.toString(CharsetUtil.UTF_8), "finish")){
+            if (countsForTest==3) {
+                System.out.println(countsForTest+":countsForTest,,,1同學做完了，給1題目，讓2進去考試");
+                countsForTest += 1;
+                System.out.println("發送score1後,countsForTest數量為:" + countsForTest);
+//                ctx.writeAndFlush(Unpooled.copiedBuffer("score1",CharsetUtil.UTF_8));
+                for (ChannelHandlerContext clientContext : clientContextMap.values()) {
+                        String clientToAllMessage = "score1";
+                        ByteBuf responseByteBuf = clientContext.alloc().buffer();
+                        responseByteBuf.writeBytes(clientToAllMessage.getBytes(CharsetUtil.UTF_8));
+                        System.out.println("進入read map裡面的迴圈,準備開始傳送score內容到各ip(如果你是本人我就不給你了)聊天室內容");
+                        clientContext.writeAndFlush(responseByteBuf);
+                }
+            }else if(countsForTest==4){
+                System.out.println(countsForTest+":countsForTest,,,1同學執行操作中，封鎖2同學行動");
+                System.out.println("發送score2後,countsForTest數量為:" + countsForTest);
+//                ctx.writeAndFlush(Unpooled.copiedBuffer("score2",CharsetUtil.UTF_8));
+                for (ChannelHandlerContext clientContext : clientContextMap.values()) {
+                        String clientToAllMessage = "score2";
+                        ByteBuf responseByteBuf = clientContext.alloc().buffer();
+                        responseByteBuf.writeBytes(clientToAllMessage.getBytes(CharsetUtil.UTF_8));
+                        System.out.println("進入read map裡面的迴圈,準備開始傳送score內容到各ip(如果你是本人我就不給你了)聊天室內容");
+                        clientContext.writeAndFlush(responseByteBuf);
+                }
+            }
+        }
         switch (clientRealMessage) {
 //            case "getonlineusers" -> sendOnlineUsers();
             case "channel1" -> {
@@ -63,7 +98,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
                 }
                 channelGroup1.add(ctx.channel());
                 System.out.println("Client " + ctx.channel().remoteAddress() + " connected to Channel 1.");
-                String clientAddMessage = "加入CHANNEL1";
+                String clientAddMessage = "CHANNEL1";
                 clientChannelMap.put(ctx, channelGroup1);
                 ByteBuf responseByteBuf = ctx.alloc().buffer();
                 responseByteBuf.writeBytes(clientAddMessage.getBytes(CharsetUtil.UTF_8));
@@ -83,7 +118,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
                 }
                 channelGroup2.add(ctx.channel());
                 System.out.println("Client " + ctx.channel().remoteAddress() + " connected to Channel 2.");
-                String clientAddMessage = "加入CHANNEL2";
+                String clientAddMessage = "CHANNEL2";
                 clientChannelMap.put(ctx, channelGroup2);
                 ByteBuf responseByteBuf = ctx.alloc().buffer();
                 responseByteBuf.writeBytes(clientAddMessage.getBytes(CharsetUtil.UTF_8));
@@ -112,33 +147,6 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
                 }
             }
         }
-//        原先預設處理client
-
-//        if("username3".equals(clientMessage)){
-//            System.out.println("準備丟給spring boot");
-//            System.out.println("userservice:"+userService);
-//            User user = userService.findByUsername(clientMessage);
-//            System.out.println("user3:"+user);
-//            UserDataResponse userDataResponse = new UserDataResponse();
-//            userDataResponse.setName(user.getName());
-//            userDataResponse.setGrade(user.getGrade());
-//            String clientRemoteAddress = ctx.channel().remoteAddress().toString();
-//            System.out.println("userDataResponse:"+userDataResponse);
-//            System.out.println("username:"+userDataResponse.getName()+"\nip:"+clientRemoteAddress);
-//            clientInfo.put(clientRemoteAddress,userDataResponse.getName());
-//        } else if ("username5".equals(clientMessage)) {
-//            System.out.println("準備丟給spring boot");
-//            System.out.println("userservice:"+userService);
-//            User user = userService.findByUsername(clientMessage);
-//            System.out.println("user5:"+user);
-//            UserDataResponse userDataResponse = new UserDataResponse();
-//            userDataResponse.setName(user.getName());
-//            userDataResponse.setGrade(user.getGrade());
-//            String clientRemoteAddress = ctx.channel().remoteAddress().toString();
-//            System.out.println("userDataResponse:"+userDataResponse);
-//            System.out.println("username:"+userDataResponse.getName()+"\nip:"+clientRemoteAddress);
-//            clientInfo.put(clientRemoteAddress,userDataResponse.getName());
-//        }
     }
 
     private void processClientMessage(ChannelHandlerContext ctx,String clientRealMessage, ChannelGroup channelGroup1, String s) {
@@ -188,7 +196,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 //        this.ctx=ctx;
         System.out.println("Active:" + ctx);
 //        channelGroup.add(ctx.channel());
-        connectedClients.add(ctx.channel()); // 将新连接的客户端通道加入列表
+        connectedClients.add(ctx.channel());
         addClientName();
         //這邊要處理登入之後的邏輯
         String clientRemoteAddress = ctx.channel().remoteAddress().toString();//把ip轉成字串準備放Map
@@ -210,7 +218,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(Unpooled.copiedBuffer("Server收到訊息", CharsetUtil.UTF_8));
+//        ctx.writeAndFlush(Unpooled.copiedBuffer("Server收到訊息", CharsetUtil.UTF_8));
     }
 
     @Override

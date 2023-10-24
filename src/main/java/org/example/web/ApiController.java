@@ -186,7 +186,7 @@ public class ApiController {
     public CompletableFuture<String> simulateProcessingAsync() {
         try {
             System.out.println("收到訊息開始倒數");
-            TimeUnit.SECONDS.sleep(15);
+            TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
